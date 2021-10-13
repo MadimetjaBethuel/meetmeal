@@ -1,6 +1,7 @@
-type UserData @model @auth(rules: [{ allow: public }]) {
+type UserData @model @auth(rules: [{allow: public}]) {
   id: ID!
   UserAge: Int
   DatingPreference: String
   Gender: String
 }
+ 

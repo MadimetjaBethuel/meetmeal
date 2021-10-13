@@ -44,7 +44,7 @@ class _MyAppState extends State<MyApp> {
       Future.wait([
         Amplify.addPlugin(datastorePlugin),
         Amplify.addPlugin(AmplifyAPI()),
-        Amplify.addPlugin(AmplifyAuthCognito())
+        Amplify.addPlugin(AmplifyAuthCognito()),
       ]);
       await Amplify.configure(amplifyconfig);
       setState(() {
