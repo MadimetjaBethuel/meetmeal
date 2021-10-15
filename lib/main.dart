@@ -1,12 +1,18 @@
+import 'package:amplify_api/amplify_api.dart';
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter/material.dart';
-import 'amplifyconfiguration.dart';
+import 'package:meetmeal/amplifyconfiguration.dart';
 import 'models/ModelProvider.dart';
+import 'pages/Profile/profile.dart';
 import 'pages/Registration/Iam.dart';
+import 'pages/login/login.dart';
+import 'pages/payment/payment.dart';
+import 'pages/rootpage/rootpage.dart';
+import 'pages/singlepages/accept&deny.dart';
+import 'pages/singlepages/sendinvitation.dart';
 import 'widgets/loading_view.dart';
-import 'package:amplify_api/amplify_api.dart';
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 
 void main() {
   runApp(MyApp());
@@ -18,8 +24,6 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   bool _amplifyConfigured = false;
-
-  @override
   void initState() {
     super.initState();
     _configureAmplify();
@@ -37,14 +41,13 @@ class _MyAppState extends State<MyApp> {
 
   void _configureAmplify() async {
     // Add the following lines to your app initialization to add the DataStore plugin
-    AmplifyDataStore datastorePlugin =
-        AmplifyDataStore(modelProvider: ModelProvider.instance);
 
     try {
-      Future.wait([
-        Amplify.addPlugin(datastorePlugin),
+      await Future.wait([
+        Amplify.addPlugin(
+            AmplifyDataStore(modelProvider: ModelProvider.instance)),
         Amplify.addPlugin(AmplifyAPI()),
-        Amplify.addPlugin(AmplifyAuthCognito()),
+        Amplify.addPlugin(AmplifyAuthCognito())
       ]);
       await Amplify.configure(amplifyconfig);
       setState(() {

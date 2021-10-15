@@ -29,13 +29,13 @@ class DateInvitation extends StatelessWidget {
                   isScrollable: false,
                   tabs: [
                     Text(
-                      "Likes",
+                      "Invitations",
                       style: TextStyle(
                         color: Colors.blue,
                       ),
                     ),
                     Text(
-                      "Bucket List",
+                      "Dates",
                       style: TextStyle(
                         color: Colors.blue,
                       ),

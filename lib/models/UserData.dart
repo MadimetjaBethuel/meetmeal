@@ -90,7 +90,7 @@ class UserData extends Model {
 
   UserData.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        UserAge = (json['UserAge'] as num)?.toInt(),
+        UserAge = json['UserAge'],
         DatingPreference = json['DatingPreference'],
         Gender = json['Gender'];
 

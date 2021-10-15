@@ -1,6 +1,8 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:meetmeal/pages/Profile/profile.dart';
+import 'package:meetmeal/pages/date&invitation/date&invitations.dart';
 import 'package:meetmeal/pages/explore/explore_page.dart';
 import 'package:meetmeal/pages/like&bucket_list/like_bucket_list.dart';
 
@@ -37,6 +39,8 @@ class _BottomNavigationAnimatedState extends State<BottomNavigationAnimated> {
         children: <Widget>[
           ExplorePage(),
           LikeBucketList(),
+          DateInvitation(),
+          AccountPage(),
           Container(
             color: Colors.blue,
           ),
@@ -64,8 +68,14 @@ class _BottomNavigationAnimatedState extends State<BottomNavigationAnimated> {
             inactiveColor: Colors.grey,
           ),
           BottomNavyBarItem(
-            icon: Icon(Ionicons.ios_settings),
-            title: Text("Home"),
+            icon: Icon(Ionicons.md_calendar),
+            title: Text("Dates"),
+            activeColor: Colors.blue,
+            inactiveColor: Colors.grey,
+          ),
+          BottomNavyBarItem(
+            icon: Icon(Ionicons.md_person),
+            title: Text("Account"),
             activeColor: Colors.blue,
             inactiveColor: Colors.grey,
           ),
