@@ -2,6 +2,9 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:meetmeal/widgets/buttonwidget.dart';
+
+import '../Iam.dart';
 
 class RegisterLayout extends StatelessWidget {
   @override
@@ -42,26 +45,16 @@ class RegisterLayout extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 10),
             height: 40.0,
             color: Colors.transparent,
-            child: Container(
-              decoration: BoxDecoration(
-                  border: Border.all(
-                      color: Colors.black, style: BorderStyle.solid, width: 0),
-                  color: Colors.blue,
-                  borderRadius: BorderRadius.circular(10.0)),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Center(
-                    child: ImageIcon(AssetImage('assets/facebook.png')),
-                  ),
-                  SizedBox(width: 10.0),
-                  Center(
-                    child: Text('Log in with facebook',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'Montserrat')),
-                  )
-                ],
+            child: Center(
+              child: RoundedButton(
+                text: "Regidter with Google",
+                color: Colors.blue,
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Iam()),
+                  );
+                },
               ),
             ),
           )

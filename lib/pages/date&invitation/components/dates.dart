@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meetmeal/data/date_json.dart';
-
-import 'package:meetmeal/pages/productpage/product_page.dart';
+import 'package:meetmeal/pages/payment/payment.dart';
 
 class Dates extends StatelessWidget {
   @override
@@ -20,7 +19,7 @@ class Dates extends StatelessWidget {
                 Navigator.push(
                   context,
                   PageRouteBuilder(
-                    pageBuilder: (Context, a, b) => ProductPage(),
+                    pageBuilder: (context, a, b) => PaymentPage(),
                   ),
                 );
               },

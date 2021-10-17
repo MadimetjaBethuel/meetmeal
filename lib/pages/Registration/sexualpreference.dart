@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gender_picker/gender_picker.dart';
 import 'package:gender_picker/source/enums.dart';
 import 'package:meetmeal/backend/userCubit.dart';
+import 'package:meetmeal/pages/Registration/foodpreferencepage.dart';
 import 'package:meetmeal/widgets/buttonwidget.dart';
 
 class SexualPrefernce extends StatefulWidget {
@@ -96,6 +97,10 @@ class _SexualPreferenceBodyState extends State<SexualPreferenceBody> {
         onPressed: () {
           BlocProvider.of<CreateUserCubit>(context)
               .saveDatingPreference("male");
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => FoodPreferencesPage()),
+          );
 
           print("Success");
         },

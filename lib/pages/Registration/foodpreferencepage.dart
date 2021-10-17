@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meetmeal/pages/rootpage/rootpage.dart';
 
 import 'components/grid_item.dart';
 
@@ -35,10 +36,10 @@ class _FoodPreferencesPageState extends State<FoodPreferencesPage> {
       body: GridView.builder(
           itemCount: itemList.length,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 4,
+              crossAxisCount: 2,
               childAspectRatio: 0.56,
-              crossAxisSpacing: 2,
-              mainAxisSpacing: 2),
+              crossAxisSpacing: 5,
+              mainAxisSpacing: 0),
           itemBuilder: (context, index) {
             return GridItem(
                 item: itemList[index],
@@ -69,14 +70,18 @@ class _FoodPreferencesPageState extends State<FoodPreferencesPage> {
                 onTap: () {
                   setState(() {
                     for (int i = 0; i < selectedList.length; i++) {
-                      itemList.remove(selectedList[i]);
+                      // itemList.remove(selectedList[i]);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => RootPage()),
+                      );
                     }
                     selectedList = List();
                   });
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Icon(Icons.delete),
+                  child: Icon(Icons.send),
                 ))
       ],
     );

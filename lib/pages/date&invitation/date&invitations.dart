@@ -50,8 +50,8 @@ class DateInvitation extends StatelessWidget {
             Expanded(
               child: TabBarView(
                 children: [
-                  Dates(),
                   Invitations(),
+                  Dates(),
                 ],
               ),
             ),

@@ -34,7 +34,7 @@ class _SendInvitationState extends State<SendInvitation> {
         child: Column(
           children: [
             Image.asset(
-              "",
+              widget.foodinfo.img,
               height: 400,
               width: 500,
             ),

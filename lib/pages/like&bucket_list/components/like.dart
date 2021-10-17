@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:meetmeal/data/card_json.dart';
 import 'package:meetmeal/data/like_json.dart';
 import 'package:meetmeal/pages/productpage/product_page.dart';
+import 'package:meetmeal/pages/singlepages/sendinvitation.dart';
 
 class Likes extends StatelessWidget {
   @override
@@ -19,7 +21,9 @@ class Likes extends StatelessWidget {
                 Navigator.push(
                   context,
                   PageRouteBuilder(
-                    pageBuilder: (Context, a, b) => ProductPage(),
+                    pageBuilder: (context, a, b) => SendInvitation(
+                      foodinfo: FoodinfoList[index],
+                    ),
                   ),
                 );
               },

@@ -7,6 +7,8 @@ import 'package:meetmeal/amplifyconfiguration.dart';
 import 'models/ModelProvider.dart';
 import 'pages/Profile/profile.dart';
 import 'pages/Registration/Iam.dart';
+import 'pages/Registration/Register.dart';
+import 'pages/Registration/foodpreferencepage.dart';
 import 'pages/login/login.dart';
 import 'pages/payment/payment.dart';
 import 'pages/rootpage/rootpage.dart';
@@ -35,7 +37,7 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: _amplifyConfigured ? Iam() : LoadingView(),
+      home: _amplifyConfigured ? Register() : LoadingView(),
     );
   }
 
