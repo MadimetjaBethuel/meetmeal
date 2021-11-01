@@ -61,7 +61,7 @@ class _FoodPreferencesPageState extends State<FoodPreferencesPage> {
   getAppBar() {
     return AppBar(
       title: Text(selectedList.length < 1
-          ? "Multi Selection"
+          ? "Food Preference"
           : "${selectedList.length} item selected"),
       actions: <Widget>[
         selectedList.length < 1

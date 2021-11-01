@@ -52,7 +52,7 @@ class BodyState extends State<Body> {
         children: [
           SizedBox(height: 60),
           Container(
-            child: Text('I am',
+            child: Text('I am...',
                 style: TextStyle(fontSize: 80.0, fontWeight: FontWeight.bold)),
           ),
           SizedBox(height: 40),

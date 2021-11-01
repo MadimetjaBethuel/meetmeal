@@ -4,16 +4,10 @@ import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter/material.dart';
 import 'package:meetmeal/amplifyconfiguration.dart';
+import 'package:meetmeal/pages/Registration/emailregister.dart';
 import 'models/ModelProvider.dart';
-import 'pages/Profile/profile.dart';
-import 'pages/Registration/Iam.dart';
 import 'pages/Registration/Register.dart';
-import 'pages/Registration/foodpreferencepage.dart';
 import 'pages/login/login.dart';
-import 'pages/payment/payment.dart';
-import 'pages/rootpage/rootpage.dart';
-import 'pages/singlepages/accept&deny.dart';
-import 'pages/singlepages/sendinvitation.dart';
 import 'widgets/loading_view.dart';
 
 void main() {
@@ -37,7 +31,7 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: _amplifyConfigured ? Register() : LoadingView(),
+      home: _amplifyConfigured ? RegisterScreen() : LoadingView(),
     );
   }
 

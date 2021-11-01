@@ -1,6 +1,6 @@
 {
   "auth": {
-    "meatmeals27c08553": {
+    "meatmeals2f8baf6c": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],

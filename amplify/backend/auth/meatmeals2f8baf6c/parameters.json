@@ -1,8 +1,8 @@
 {
-    "identityPoolName": "meatmeals27c08553_identitypool_27c08553",
+    "identityPoolName": "meatmeals2f8baf6c_identitypool_2f8baf6c",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "meatme27c08553",
-    "userPoolName": "meatmeals27c08553_userpool_27c08553",
+    "resourceNameTruncated": "meatme2f8baf6c",
+    "userPoolName": "meatmeals2f8baf6c_userpool_2f8baf6c",
     "autoVerifiedAttributes": [
         "email"
     ],
@@ -29,10 +29,10 @@
     "userpoolClientReadAttributes": [
         "email"
     ],
-    "userpoolClientLambdaRole": "meatme27c08553_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "meatme2f8baf6c_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "27c08553",
-    "resourceName": "meatmeals27c08553",
+    "sharedId": "2f8baf6c",
+    "resourceName": "meatmeals2f8baf6c",
     "authSelections": "identityPoolAndUserPool",
     "authRoleArn": {
         "Fn::GetAtt": [
@@ -47,13 +47,14 @@
         ]
     },
     "useDefault": "defaultSocial",
-    "hostedUI": true,
-    "hostedUIDomainName": "meatmeals27c08553-27c08553",
-    "authProvidersUserPool": [],
-    "hostedUIProviderMeta": "[]",
-    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:3000/\"],\"LogoutURLs\":[\"http://localhost:3000/\"]}",
     "userPoolGroupList": [],
     "serviceName": "Cognito",
     "usernameCaseSensitive": false,
-    "dependsOn": []
+    "dependsOn": [],
+    "hostedUI": true,
+    "hostedUIDomainName": "meatmeals3768f061-3768f061",
+    "authProvidersUserPool": [],
+    "hostedUIProviderMeta": "[]",
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"meetmeal://\"],\"LogoutURLs\":[\"meetmeal://\"]}",
+    "authProviders": []
 }
