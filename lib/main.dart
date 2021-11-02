@@ -3,11 +3,15 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meetmeal/amplifyconfiguration.dart';
-import 'package:meetmeal/pages/Registration/emailregister.dart';
+import 'package:meetmeal/app_navigator.dart';
+import 'package:meetmeal/backend/Authentication/auth_repsository.dart';
+import 'package:meetmeal/backend/Authentication/data_repository.dart';
+import 'package:meetmeal/backend/Authentication/session/session_cubit.dart';
+
 import 'models/ModelProvider.dart';
-import 'pages/Registration/Register.dart';
-import 'pages/login/login.dart';
+
 import 'widgets/loading_view.dart';
 
 void main() {
@@ -31,7 +35,25 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: _amplifyConfigured ? RegisterScreen() : LoadingView(),
+      home: _amplifyConfigured
+          ? MultiRepositoryProvider(
+              providers: [
+                RepositoryProvider(
+                  create: (context) => AuthRepository(),
+                ),
+                RepositoryProvider(
+                  create: (context) => DataRepository(),
+                ),
+              ],
+              child: BlocProvider(
+                create: (context) => SessionCubit(
+                  authRespository: context.read<AuthRepository>(),
+                  dataRepository: context.read<DataRepository>(),
+                ),
+                child: AppNavigator(),
+              ),
+            )
+          : LoadingView(),
     );
   }
 

@@ -1,42 +1,33 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:meetmeal/backend/authentication/auth_repository.dart';
-import 'package:meetmeal/backend/authentication/auth_state.dart';
+import 'package:meetmeal/backend/Authentication/auth_credentials.dart';
+
+import 'session/session_cubit.dart';
+
+enum AuthState { login, signUp, confirmSignUp }
 
 class AuthCubit extends Cubit<AuthState> {
-  final authRepo = AuthRepository();
-  AuthCubit() : super(unknownAuthState());
+  final SessionCubit sessionCubit;
 
-  void signIn() async {
-    try {
-      final userId = await authRepo.webSignin();
-      if (userId != null && userId.isNotEmpty) {
-        emit(Authnticated(userId: userId));
-      } else {
-        emit(Unauthenticated());
-      }
-    } catch (e) {
-      throw e;
-    }
+  AuthCubit({
+    this.sessionCubit,
+  }) : super(AuthState.login);
+
+  AuthCredentials credentials;
+
+  void showLogin() => emit(AuthState.login);
+  void showsSignUp() => emit(AuthState.signUp);
+
+  void showConfirmSignUp({
+    String email,
+    String password,
+  }) {
+    credentials = AuthCredentials(
+      email: email,
+      password: password,
+    );
+    emit(AuthState.confirmSignUp);
   }
 
-  void signOut() async {
-    try {
-      await authRepo.signOut();
-    } on Exception {
-      emit(Unauthenticated());
-    }
-  }
-
-  void autoSignin() async {
-    try {
-      final userId = await authRepo.autoSignin();
-      if (userId != null && userId.isNotEmpty) {
-        emit(Authnticated(userId: userId));
-      } else {
-        emit(Unauthenticated());
-      }
-    } on Exception {
-      emit(Unauthenticated());
-    }
-  }
+  void launchSession(AuthCredentials credentials) =>
+      sessionCubit.showSession(credentials);
 }

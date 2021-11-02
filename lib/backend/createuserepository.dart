@@ -8,7 +8,7 @@ class CreateUserRepository {
   ) async {
     final newUserGenderAge = UserData(
       Gender: gender,
-      UserAge: age,
+      //  UserAge: age,
     );
 
     try {
@@ -19,11 +19,11 @@ class CreateUserRepository {
   }
 
   Future<void> datingPreference(
-    String datingPreference,
-  ) async {
+      //String datingPreference,
+      ) async {
     final newUserDatingPrefence = UserData(
-      DatingPreference: datingPreference,
-    );
+        //  datingPreference: datingPreference,
+        );
 
     try {
       await Amplify.DataStore.save(newUserDatingPrefence);

@@ -23,8 +23,8 @@ import 'package:flutter/foundation.dart';
 class UserData extends Model {
   static const classType = const _UserDataModelType();
   final String id;
-  final int UserAge;
-  final String DatingPreference;
+  final String UserAge;
+  final String DatingPrefernce;
   final String Gender;
 
   @override
@@ -36,14 +36,14 @@ class UserData extends Model {
   }
 
   const UserData._internal(
-      {@required this.id, this.UserAge, this.DatingPreference, this.Gender});
+      {@required this.id, this.UserAge, this.DatingPrefernce, this.Gender});
 
   factory UserData(
-      {String id, int UserAge, String DatingPreference, String Gender}) {
+      {String id, String UserAge, String DatingPrefernce, String Gender}) {
     return UserData._internal(
         id: id == null ? UUID.getUUID() : id,
         UserAge: UserAge,
-        DatingPreference: DatingPreference,
+        DatingPrefernce: DatingPrefernce,
         Gender: Gender);
   }
 
@@ -57,7 +57,7 @@ class UserData extends Model {
     return other is UserData &&
         id == other.id &&
         UserAge == other.UserAge &&
-        DatingPreference == other.DatingPreference &&
+        DatingPrefernce == other.DatingPrefernce &&
         Gender == other.Gender;
   }
 
@@ -70,9 +70,8 @@ class UserData extends Model {
 
     buffer.write("UserData {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write(
-        "UserAge=" + (UserAge != null ? UserAge.toString() : "null") + ", ");
-    buffer.write("DatingPreference=" + "$DatingPreference" + ", ");
+    buffer.write("UserAge=" + "$UserAge" + ", ");
+    buffer.write("DatingPrefernce=" + "$DatingPrefernce" + ", ");
     buffer.write("Gender=" + "$Gender");
     buffer.write("}");
 
@@ -80,31 +79,31 @@ class UserData extends Model {
   }
 
   UserData copyWith(
-      {String id, int UserAge, String DatingPreference, String Gender}) {
+      {String id, String UserAge, String DatingPrefernce, String Gender}) {
     return UserData(
         id: id ?? this.id,
         UserAge: UserAge ?? this.UserAge,
-        DatingPreference: DatingPreference ?? this.DatingPreference,
+        DatingPrefernce: DatingPrefernce ?? this.DatingPrefernce,
         Gender: Gender ?? this.Gender);
   }
 
   UserData.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         UserAge = json['UserAge'],
-        DatingPreference = json['DatingPreference'],
+        DatingPrefernce = json['DatingPrefernce'],
         Gender = json['Gender'];
 
   Map<String, dynamic> toJson() => {
         'id': id,
         'UserAge': UserAge,
-        'DatingPreference': DatingPreference,
+        'DatingPrefernce': DatingPrefernce,
         'Gender': Gender
       };
 
   static final QueryField ID = QueryField(fieldName: "userData.id");
   static final QueryField USERAGE = QueryField(fieldName: "UserAge");
-  static final QueryField DATINGPREFERENCE =
-      QueryField(fieldName: "DatingPreference");
+  static final QueryField DATINGPREFERNCE =
+      QueryField(fieldName: "DatingPrefernce");
   static final QueryField GENDER = QueryField(fieldName: "Gender");
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
@@ -125,10 +124,10 @@ class UserData extends Model {
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
         key: UserData.USERAGE,
         isRequired: false,
-        ofType: ModelFieldType(ModelFieldTypeEnum.int)));
+        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: UserData.DATINGPREFERENCE,
+        key: UserData.DATINGPREFERNCE,
         isRequired: false,
         ofType: ModelFieldType(ModelFieldTypeEnum.string)));
 

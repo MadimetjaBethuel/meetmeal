@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gender_picker/source/enums.dart';
+import 'package:meetmeal/backend/auth_info/auth_info_cubit.dart';
 import 'package:meetmeal/backend/userCubit.dart';
 import 'package:meetmeal/pages/Registration/sexualpreference.dart';
 import 'package:meetmeal/widgets/buttonwidget.dart';
@@ -14,8 +15,8 @@ class Iam extends StatefulWidget {
 class _IamState extends State<Iam> {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<CreateUserCubit>(
-      create: (context) => CreateUserCubit(),
+    return BlocProvider<SaveUserInfoCubit>(
+      create: (context) => SaveUserInfoCubit(),
       child: Body(),
     );
   }
@@ -46,7 +47,7 @@ class BodyState extends State<Body> {
   }
 
   Widget screenbody() {
-    return BlocBuilder<CreateUserCubit, CreateUserState>(
+    return BlocBuilder<SaveUserInfoCubit, SaveUserInfoState>(
       builder: (context, state) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -137,8 +138,8 @@ class BodyState extends State<Body> {
       child: RoundedButton(
         text: "Next",
         onPressed: () {
-          BlocProvider.of<CreateUserCubit>(context)
-              .saveGenderAgeData(currentAge, newGender);
+          BlocProvider.of<SaveUserInfoCubit>(context)
+              .saveGenderandAge(newGender, currentAge);
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => SexualPrefernce()),
