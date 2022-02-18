@@ -1,8 +1,7 @@
-type UserData @model @auth(rules: [{allow: public}]) {
+type FoodPreference @model @auth(rules: [{allow: public}]) @key(name: "byUser", fields: ["userID"]) {
   id: ID!
-  UserAge: String
-  DatingPrefernce: String
-  Gender: String
+  foodPreference: String
+  userID: ID
 }
 
 type User @model @auth(rules: [{allow: public}]) {
@@ -12,5 +11,6 @@ type User @model @auth(rules: [{allow: public}]) {
   gender: String
   email: String
   description: String
+  FoodPreferences: [FoodPreference] @connection(keyName: "byUser", fields: ["id"])
 }
  

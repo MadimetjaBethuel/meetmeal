@@ -17,11 +17,13 @@ class AuthInfoRepository {
   Future<void> saveAgeandGender(
     String gender,
     int age,
+    String datingPreference,
     String userId,
   ) async {
     final newAgeandGender = User(
       gender: gender,
       age: age,
+      datingPreference: datingPreference,
       id: userId,
     );
     try {
@@ -36,13 +38,13 @@ class AuthInfoRepository {
     String datingPreferences,
     String userId,
   ) async {
-    userId = getUserIdFromAttributes().toString();
     final datingPreference = User(
       datingPreference: datingPreferences,
       id: userId,
     );
 
     try {
+      userId = getUserIdFromAttributes().toString();
       await Amplify.DataStore.save(datingPreference);
     } catch (e) {
       throw e;

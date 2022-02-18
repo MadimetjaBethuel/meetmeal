@@ -11,6 +11,12 @@ class SessionCubit extends Cubit<SessionState> {
   final AuthRepository authRespository;
   final DataRepository dataRepository;
 
+  User get currentUser => (state as Authenticated).user;
+  User get selectedUser => (state as Authenticated).selectedUser;
+
+  bool get isCurrentUserSelected =>
+      selectedUser == null || currentUser.id == selectedUser.id;
+
   SessionCubit({
     @required this.authRespository,
     @required this.dataRepository,

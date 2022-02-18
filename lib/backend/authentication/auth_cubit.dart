@@ -3,7 +3,7 @@ import 'package:meetmeal/backend/Authentication/auth_credentials.dart';
 
 import 'session/session_cubit.dart';
 
-enum AuthState { login, signUp, confirmSignUp }
+enum AuthState { login, signUp, confirmSignUp, signout }
 
 class AuthCubit extends Cubit<AuthState> {
   final SessionCubit sessionCubit;

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gender_picker/source/enums.dart';
+import 'package:meetmeal/backend/Authentication/session/session_cubit.dart';
 import 'package:meetmeal/backend/auth_info/auth_info_cubit.dart';
-import 'package:meetmeal/backend/userCubit.dart';
+import 'package:meetmeal/pages/Registration/foodpreferencepage.dart';
+
 import 'package:meetmeal/pages/Registration/sexualpreference.dart';
 import 'package:meetmeal/widgets/buttonwidget.dart';
 import 'package:numberpicker/numberpicker.dart';
@@ -29,8 +31,10 @@ class Body extends StatefulWidget {
 class BodyState extends State<Body> {
   int currentAge = 18;
   Gender startingGender = Gender.Male;
+  Gender datingGender = Gender.Male;
 
   String newGender;
+  String dating;
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -54,16 +58,19 @@ class BodyState extends State<Body> {
           SizedBox(height: 60),
           Container(
             child: Text('I am...',
-                style: TextStyle(fontSize: 80.0, fontWeight: FontWeight.bold)),
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
           ),
           SizedBox(height: 40),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _numPicker(),
-              _genderPicker(),
               SizedBox(height: 40),
+              _genderPicker(),
+              SizedBox(height: 10),
+              _screenBody(),
               _createUser(),
+              _signOut(),
             ],
           ),
         ],
@@ -80,7 +87,7 @@ class BodyState extends State<Body> {
           minValue: 18,
           maxValue: 100,
           step: 1,
-          itemHeight: 100,
+          itemHeight: 80,
           axis: Axis.horizontal,
           onChanged: (value) => setState(() => currentAge = value),
           decoration: BoxDecoration(
@@ -116,7 +123,7 @@ class BodyState extends State<Body> {
     return Center(
         child: GenderPickerWithImage(
       showOtherGender: false,
-      verticalAlignedText: true,
+      verticalAlignedText: false,
       selectedGender: startingGender,
       selectedGenderTextStyle:
           TextStyle(color: Color(0xFF8b32a8), fontWeight: FontWeight.bold),
@@ -129,7 +136,7 @@ class BodyState extends State<Body> {
       // default : true,
       opacityOfGradient: 0.4,
       padding: const EdgeInsets.all(3),
-      size: 120, //default : 40
+      size: 70, //default : 40
     ));
   }
 
@@ -138,14 +145,87 @@ class BodyState extends State<Body> {
       child: RoundedButton(
         text: "Next",
         onPressed: () {
+          if (startingGender == Gender.Male) {
+            newGender = "Male";
+          } else if (startingGender == Gender.Female) {
+            newGender = "Female";
+          }
+          if (datingGender == Gender.Male) {
+            dating = "Male";
+          } else if (startingGender == Gender.Female) {
+            dating = "Female";
+          }
+
           BlocProvider.of<SaveUserInfoCubit>(context)
-              .saveGenderandAge(newGender, currentAge);
-          Navigator.push(
+              .saveGenderandAge(newGender, currentAge, dating);
+
+          /*Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => SexualPrefernce()),
-          );
+            MaterialPageRoute(builder: (context) => FoodPreferencesPage()),
+          );*/
 
           print("Success");
+        },
+      ),
+    );
+  }
+
+  Widget _screenBody() {
+    return BlocBuilder<SaveUserInfoCubit, SaveUserInfoState>(
+      builder: (context, state) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(height: 60),
+          Container(
+            padding: EdgeInsets.symmetric(
+              horizontal: 10,
+            ),
+            child: Text('Dating Preference',
+                style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold)),
+          ),
+          SizedBox(height: 40),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _genderPickerdaiting(),
+              SizedBox(height: 40),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _genderPickerdaiting() {
+    return Center(
+      child: GenderPickerWithImage(
+        showOtherGender: false,
+        verticalAlignedText: false,
+        selectedGender: datingGender,
+        selectedGenderTextStyle:
+            TextStyle(color: Color(0xFF8b32a8), fontWeight: FontWeight.bold),
+        unSelectedGenderTextStyle:
+            TextStyle(color: Colors.white, fontWeight: FontWeight.normal),
+        onChanged: (gender) => setState(() => datingGender = gender),
+        equallyAligned: true,
+        animationDuration: Duration(milliseconds: 300),
+        isCircular: true,
+        // default : true,
+        opacityOfGradient: 0.4,
+        padding: const EdgeInsets.all(3),
+        size: 80, //default : 40
+      ),
+    );
+  }
+
+  Widget _signOut() {
+    return Center(
+      child: RoundedButton(
+        text: "SignedOut",
+        onPressed: () {
+          BlocProvider.of<SessionCubit>(context).signOut();
+
+          print("Signed out");
         },
       ),
     );

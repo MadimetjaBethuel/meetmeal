@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gender_picker/gender_picker.dart';
 import 'package:gender_picker/source/enums.dart';
-import 'package:meetmeal/backend/userCubit.dart';
+import 'package:meetmeal/backend/Authentication/session/session_cubit.dart';
+import 'package:meetmeal/backend/auth_info/auth_info_cubit.dart';
 import 'package:meetmeal/pages/Registration/foodpreferencepage.dart';
 import 'package:meetmeal/widgets/buttonwidget.dart';
 
@@ -13,8 +14,8 @@ class SexualPrefernce extends StatefulWidget {
 class _SexualPreferenceState extends State<SexualPrefernce> {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<CreateUserCubit>(
-      create: (context) => CreateUserCubit(),
+    return BlocProvider<SaveUserInfoCubit>(
+      create: (context) => SaveUserInfoCubit(),
       child: SexualPreferenceBody(),
     );
   }
@@ -34,30 +35,7 @@ class _SexualPreferenceBodyState extends State<SexualPreferenceBody> {
     return Scaffold(
       appBar: _navBar(),
       body: Center(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(height: 60),
-            Container(
-              padding: EdgeInsets.symmetric(
-                horizontal: 10,
-              ),
-              child: Text('Dating Preference',
-                  style:
-                      TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold)),
-            ),
-            SizedBox(height: 40),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _genderPicker(),
-                SizedBox(height: 40),
-                _datingPreference(),
-                SizedBox(height: 40),
-              ],
-            ),
-          ],
-        ),
+        child: _screenBody(),
       ),
     );
   }
@@ -65,6 +43,35 @@ class _SexualPreferenceBodyState extends State<SexualPreferenceBody> {
   AppBar _navBar() {
     return AppBar(
       title: Text("Dating Preference"),
+    );
+  }
+
+  Widget _screenBody() {
+    return BlocBuilder<SaveUserInfoCubit, SaveUserInfoState>(
+      builder: (context, state) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(height: 60),
+          Container(
+            padding: EdgeInsets.symmetric(
+              horizontal: 10,
+            ),
+            child: Text('Dating Preference',
+                style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold)),
+          ),
+          SizedBox(height: 40),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _genderPicker(),
+              SizedBox(height: 40),
+              _datingPreference(),
+              SizedBox(height: 40),
+              _signOut(),
+            ],
+          ),
+        ],
+      ),
     );
   }
 
@@ -95,14 +102,32 @@ class _SexualPreferenceBodyState extends State<SexualPreferenceBody> {
       child: RoundedButton(
         text: "Next",
         onPressed: () {
-          BlocProvider.of<CreateUserCubit>(context)
-              .saveDatingPreference("male");
+          if (startingGender == Gender.Male) {
+            newGender = "Male";
+          } else if (startingGender == Gender.Female) {
+            newGender = "Female";
+          }
+          BlocProvider.of<SaveUserInfoCubit>(context)
+              .savedatingPrefernce(newGender);
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => FoodPreferencesPage()),
           );
 
           print("Success");
+        },
+      ),
+    );
+  }
+
+  Widget _signOut() {
+    return Center(
+      child: RoundedButton(
+        text: "SignedOut",
+        onPressed: () {
+          BlocProvider.of<SessionCubit>(context).signOut();
+
+          print("Signed out");
         },
       ),
     );

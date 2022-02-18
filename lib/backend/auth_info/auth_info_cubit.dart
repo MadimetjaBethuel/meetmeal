@@ -12,9 +12,9 @@ class SaveUserInfoCubit extends Cubit<SaveUserInfoState> {
 
   SaveUserInfoCubit({this.userId}) : super(Saveinfo());
 
-  void saveGenderandAge(String gender, int age) async {
+  void saveGenderandAge(String gender, int age, String datingPreference) async {
     userId = await _saveInfo.getUserIdFromAttributes();
-    await _saveInfo.saveAgeandGender(gender, age, userId);
+    await _saveInfo.saveAgeandGender(gender, age, datingPreference, userId);
   }
 
   void savedatingPrefernce(String datingPreferences) async {

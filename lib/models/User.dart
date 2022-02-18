@@ -15,7 +15,9 @@
 
 // ignore_for_file: public_member_api_docs
 
+import 'ModelProvider.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
 /** This is an auto generated class representing the User type in your schema. */
@@ -28,6 +30,7 @@ class User extends Model {
   final String gender;
   final String email;
   final String description;
+  final List<FoodPreference> FoodPreferences;
 
   @override
   getInstanceType() => classType;
@@ -43,7 +46,8 @@ class User extends Model {
       this.datingPreference,
       this.gender,
       this.email,
-      this.description});
+      this.description,
+      this.FoodPreferences});
 
   factory User(
       {String id,
@@ -51,14 +55,18 @@ class User extends Model {
       String datingPreference,
       String gender,
       String email,
-      String description}) {
+      String description,
+      List<FoodPreference> FoodPreferences}) {
     return User._internal(
         id: id == null ? UUID.getUUID() : id,
         age: age,
         datingPreference: datingPreference,
         gender: gender,
         email: email,
-        description: description);
+        description: description,
+        FoodPreferences: FoodPreferences != null
+            ? List<FoodPreference>.unmodifiable(FoodPreferences)
+            : FoodPreferences);
   }
 
   bool equals(Object other) {
@@ -74,7 +82,8 @@ class User extends Model {
         datingPreference == other.datingPreference &&
         gender == other.gender &&
         email == other.email &&
-        description == other.description;
+        description == other.description &&
+        DeepCollectionEquality().equals(FoodPreferences, other.FoodPreferences);
   }
 
   @override
@@ -102,14 +111,16 @@ class User extends Model {
       String datingPreference,
       String gender,
       String email,
-      String description}) {
+      String description,
+      List<FoodPreference> FoodPreferences}) {
     return User(
         id: id ?? this.id,
         age: age ?? this.age,
         datingPreference: datingPreference ?? this.datingPreference,
         gender: gender ?? this.gender,
         email: email ?? this.email,
-        description: description ?? this.description);
+        description: description ?? this.description,
+        FoodPreferences: FoodPreferences ?? this.FoodPreferences);
   }
 
   User.fromJson(Map<String, dynamic> json)
@@ -118,7 +129,13 @@ class User extends Model {
         datingPreference = json['datingPreference'],
         gender = json['gender'],
         email = json['email'],
-        description = json['description'];
+        description = json['description'],
+        FoodPreferences = json['FoodPreferences'] is List
+            ? (json['FoodPreferences'] as List)
+                .map((e) =>
+                    FoodPreference.fromJson(new Map<String, dynamic>.from(e)))
+                .toList()
+            : null;
 
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -126,7 +143,8 @@ class User extends Model {
         'datingPreference': datingPreference,
         'gender': gender,
         'email': email,
-        'description': description
+        'description': description,
+        'FoodPreferences': FoodPreferences?.map((e) => e?.toJson())?.toList()
       };
 
   static final QueryField ID = QueryField(fieldName: "user.id");
@@ -136,6 +154,10 @@ class User extends Model {
   static final QueryField GENDER = QueryField(fieldName: "gender");
   static final QueryField EMAIL = QueryField(fieldName: "email");
   static final QueryField DESCRIPTION = QueryField(fieldName: "description");
+  static final QueryField FOODPREFERENCES = QueryField(
+      fieldName: "FoodPreferences",
+      fieldType: ModelFieldType(ModelFieldTypeEnum.model,
+          ofModelName: (FoodPreference).toString()));
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "User";
@@ -176,6 +198,12 @@ class User extends Model {
         key: User.DESCRIPTION,
         isRequired: false,
         ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.hasMany(
+        key: User.FOODPREFERENCES,
+        isRequired: false,
+        ofModelName: (FoodPreference).toString(),
+        associatedKey: FoodPreference.USERID));
   });
 }
 
